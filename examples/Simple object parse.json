@@ -1,0 +1,1 @@
+[{string: 'Hello World',integer: 12345,dict: {key: 'This is a string within a dictionary'},list: [ 1, 2, 3, 4, 'string', 5, {} ]}]

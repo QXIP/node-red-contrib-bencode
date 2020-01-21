@@ -1,0 +1,42 @@
+<script type="text/x-red" data-template-name="bencode">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-property"><i class="fa fa-ellipsis-h"></i> <span data-i18n="node-red:common.label.property"></span></label>
+        <input type="text" id="node-input-property" style="width:70%;"/>
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="bencode">
+    <p>A parser that takes the <code>msg.payload</code> and converts it to/from bencode data. <b>Pattern</b> specifies the bencode format.</p>
+    <p>If the input is a buffer it tries to parse it and creates a javascript object.</p>
+    <p>If the input is a javascript object it tries to serialize it and creates a buffer.</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType("bencode", {
+        category: "function",
+        color: "#DEBD5C",
+        defaults: {
+            name: { value:"" },
+            property: { value:"payload",required:true },
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "parser-bencode.png",
+        label: function() {
+            return this.name || "bencode";
+        },
+        labelStyle: function() {
+            return this.name ? "node_label_italic" : "";
+        },
+        oneditprepare: function() {
+            if (this.property === undefined) {
+                $("#node-input-property").val("payload");
+            }
+            $("#node-input-property").typedInput({default:'msg',types:['msg']});
+        }
+    });
+</script>
