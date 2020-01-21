@@ -9,6 +9,17 @@ var Bencode = require('../lib/BencodeNode')(RED)
 var assert = require('assert')
 var typeOf = require('typeof')
 
+var bencode_string = 'd6:string11:Hello World7:integeri12345e4:dictd3:key36:This is a string within a dictionarye4:listli1ei2ei3ei4e6:stringi5edeee';
+var bencode_buffer = Buffer.from(benstring);
+var bencode_object = {
+  string: 'Hello World',
+  integer: 12345,
+  dict: {
+    key: 'This is a string within a dictionary'
+  },
+  list: [ 1, 2, 3, 4, 'string', 5, {} ]
+};
+
 describe('Environment:', function () {
   it('is ready', function () {
     assert(Bencode)
@@ -47,26 +58,24 @@ describe('BencodeNode:', function () {
   })
 
   it('valid input', function () {
-    var msg = {payload: {integer: 1, float: 2.5}}
+    var msg = {payload: bencode_object }
     bin.handleInputEvent(msg)
     assert(node.messageSent != null)
   })
 
   it('valid serialization', function () {
-    var msg = {payload: {integer: 1, float: 2.5}}
+    var msg = {payload: bencode_object }
     bin.handleInputEvent(msg)
     var t = typeOf(node.messageSent.payload)
     assert.strictEqual(t, 'buffer')
-    var ref = new Buffer('0100002040', 'hex')
+    var ref = bencode_buffer;
     assert.equal(node.messageSent.payload.compare(ref), 0)
   })
 
   it('valid parsing', function () {
-    var msg = {payload: new Buffer('0100002040', 'hex')}
+    var msg = {payload: bencode_buffer}
     bin.handleInputEvent(msg)
     var t = typeOf(node.messageSent.payload)
     assert.strictEqual(t, 'object')
-    assert.equal(node.messageSent.payload.integer, 1)
-    assert.equal(node.messageSent.payload.float, 2.5)
   })
 })
