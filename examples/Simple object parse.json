@@ -1,1 +1,1 @@
-[{string: 'Hello World',integer: 12345,dict: {key: 'This is a string within a dictionary'},list: [ 1, 2, 3, 4, 'string', 5, {} ]}]
+[{string: 'Hello World',integer: 12345,[{"id":"ae8452a7.9ad6","type":"debug","z":"4db077b3.342c88","name":"","active":true,"tosidebar":true,"console":true,"tostatus":true,"complete":"payload","targetType":"msg","x":800,"y":220,"wires":[]}]dict: {key: 'This is a string within a dictionary'},list: [ 1, 2, 3, 4, 'string', 5, {} ]}]
